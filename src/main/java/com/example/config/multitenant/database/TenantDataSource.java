@@ -12,7 +12,7 @@ import java.util.Map;
 //@Component
 public class TenantDataSource implements Serializable {
 
-    private HashMap<String, DataSource> dataSources = new HashMap<>();
+    private final HashMap<String, DataSource> dataSources = new HashMap<>();
 
     @Autowired
     private DataSourceConfigRepository configRepo;

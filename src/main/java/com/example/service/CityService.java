@@ -17,7 +17,7 @@ public class CityService {
     //@Autowired
     //private TenantDataSource tenantDataSource;
 
-    public void save(City city){
+    public void save(City city) {
         cityRepository.save(city);
     }
 
@@ -33,15 +33,15 @@ public class CityService {
 
     }
 
-    public City get(Long id){
+    public City get(Long id) {
         return cityRepository.findById(id);
     }
 
-    public City getByName(String name){
+    public City getByName(String name) {
         return cityRepository.findByName(name);
     }
 
-    public void delete(String name){
+    public void delete(String name) {
         cityRepository.deleteByName(name);
     }
 }

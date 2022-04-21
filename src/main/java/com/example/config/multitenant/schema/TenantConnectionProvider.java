@@ -12,9 +12,9 @@ import java.sql.SQLException;
 @Component
 public class TenantConnectionProvider implements MultiTenantConnectionProvider {
 
-    private static Logger logger = LoggerFactory.getLogger(TenantConnectionProvider.class);
-    private String DEFAULT_TENANT = "public";
-    private DataSource datasource;
+    private static final Logger logger = LoggerFactory.getLogger(TenantConnectionProvider.class);
+    private final String DEFAULT_TENANT = "public";
+    private final DataSource datasource;
 
     public TenantConnectionProvider(DataSource dataSource) {
         this.datasource = dataSource;

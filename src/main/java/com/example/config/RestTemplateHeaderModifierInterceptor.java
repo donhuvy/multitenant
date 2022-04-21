@@ -19,17 +19,17 @@ public class RestTemplateHeaderModifierInterceptor implements ClientHttpRequestI
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution clientHttpRequestExecution) throws IOException {
         /**
-        final ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        final HttpServletRequest attrRequest = attr.getRequest();
-        Enumeration headerNames = attrRequest.getHeaderNames();
-        String value = null;
-        while (headerNames.hasMoreElements()) {
-            String key = (String) headerNames.nextElement();
-            if ("projectId".equalsIgnoreCase(key)) {
-                value = attrRequest.getHeader(key);
-                request.getHeaders().add(key, value);
-            }
-        }
+         final ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+         final HttpServletRequest attrRequest = attr.getRequest();
+         Enumeration headerNames = attrRequest.getHeaderNames();
+         String value = null;
+         while (headerNames.hasMoreElements()) {
+         String key = (String) headerNames.nextElement();
+         if ("projectId".equalsIgnoreCase(key)) {
+         value = attrRequest.getHeader(key);
+         request.getHeaders().add(key, value);
+         }
+         }
          */
         String projectId = TenantContext.getCurrentTenant();
         request.getHeaders().add("X-TenantID", projectId);

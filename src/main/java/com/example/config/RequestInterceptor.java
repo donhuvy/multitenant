@@ -19,7 +19,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
         System.out.println("____________________________________________");
         String requestURI = request.getRequestURI();
         String tenantID = request.getHeader("X-TenantID");
-        System.out.println("RequestURI::" + requestURI +" || Search for X-TenantID  :: " + tenantID);
+        System.out.println("RequestURI::" + requestURI + " || Search for X-TenantID  :: " + tenantID);
         System.out.println("____________________________________________");
         if (tenantID == null) {
             response.getWriter().write("X-TenantID not present in the Request Header");
