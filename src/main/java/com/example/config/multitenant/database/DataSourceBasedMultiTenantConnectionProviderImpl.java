@@ -10,16 +10,17 @@ import java.util.Map;
 
 import static com.example.constant.MultiTenantConstants.DEFAULT_TENANT_ID;
 
-//@Component
 public class DataSourceBasedMultiTenantConnectionProviderImpl extends AbstractDataSourceBasedMultiTenantConnectionProviderImpl {
+
     private final Map<String, DataSource> map = new HashMap<>();
     boolean init = false;
+
     @Autowired
     private DataSource defaultDS;
+
     @Autowired
     private ApplicationContext context;
 
-    //@PostConstruct
     public void load() {
         map.put(DEFAULT_TENANT_ID, defaultDS);
     }

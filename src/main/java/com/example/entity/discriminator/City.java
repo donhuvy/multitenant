@@ -1,23 +1,15 @@
 package com.example.entity.discriminator;
 
-
 import java.io.Serializable;
 
-//@Entity
-//@Table(name = "city")
-//@JsonIgnoreProperties(ignoreUnknown = true)
-//@JsonInclude(JsonInclude.Include.NON_NULL)
-//@FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = "string")})
-//@Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
 public class City implements Serializable, TenantSupport {
+
     private static final long serialVersionUID = -4551953276601557391L;
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long id;
 
     private String name;
 
-    //@Column(name = "tenant_id")
     private String tenantId;
 
     public Long getId() {
@@ -53,4 +45,5 @@ public class City implements Serializable, TenantSupport {
         sb.append('}');
         return sb.toString();
     }
+
 }

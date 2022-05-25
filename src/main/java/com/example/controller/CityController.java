@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class CityController {
@@ -34,8 +35,8 @@ public class CityController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<City> get(@PathVariable(value = "id") Long id) {
-        City city = cityService.get(id);
-        return new ResponseEntity<>(city, HttpStatus.OK);
+        Optional<City> city = cityService.get(id);
+        return new ResponseEntity<>(city.orElseGet(null), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)

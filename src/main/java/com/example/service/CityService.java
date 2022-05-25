@@ -5,8 +5,8 @@ import com.example.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CityService {
@@ -14,26 +14,15 @@ public class CityService {
     @Autowired
     private CityRepository cityRepository;
 
-    //@Autowired
-    //private TenantDataSource tenantDataSource;
-
     public void save(City city) {
         cityRepository.save(city);
     }
 
-    public List<City> getAll() throws SQLException {
+    public List<City> getAll() {
         return cityRepository.findAll();
-        /*
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(tenantDataSource.getDataSource(TenantContext.getCurrentTenant()));
-        String sql = "SELECT * FROM city";
-        List<City> cities = jdbcTemplate.query(sql,
-                new BeanPropertyRowMapper(City.class));
-        return cities;
-        */
-
     }
 
-    public City get(Long id) {
+    public Optional<City> get(Long id) {
         return cityRepository.findById(id);
     }
 
@@ -44,4 +33,5 @@ public class CityService {
     public void delete(String name) {
         cityRepository.deleteByName(name);
     }
+
 }

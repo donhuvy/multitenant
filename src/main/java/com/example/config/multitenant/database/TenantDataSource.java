@@ -1,7 +1,7 @@
 package com.example.config.multitenant.database;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 
 import javax.sql.DataSource;
 import java.io.Serializable;
@@ -9,13 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//@Component
 public class TenantDataSource implements Serializable {
 
     private final HashMap<String, DataSource> dataSources = new HashMap<>();
 
     @Autowired
-    private DataSourceConfigRepository configRepo;
+    private DataSourceConfigRepository dataSourceConfigRepository;
 
     public DataSource getDataSource(String name) {
         if (dataSources.get(name) != null) {
@@ -28,9 +27,8 @@ public class TenantDataSource implements Serializable {
         return dataSource;
     }
 
-    //@PostConstruct
     public Map<String, DataSource> getAll() {
-        List<DataSourceConfig> configList = configRepo.findAll();
+        List<DataSourceConfig> configList = dataSourceConfigRepository.findAll();
         Map<String, DataSource> result = new HashMap<>();
         for (DataSourceConfig config : configList) {
             DataSource dataSource = getDataSource(config.getName());
@@ -40,27 +38,20 @@ public class TenantDataSource implements Serializable {
     }
 
     private DataSource createDataSource(String name) {
-        DataSourceConfig config = configRepo.findByName(name);
+        DataSourceConfig config = dataSourceConfigRepository.findByName(name);
         if (config != null) {
-            DataSourceBuilder factory = DataSourceBuilder
-                    .create().driverClassName(config.getDriverClassName())
-                    .username(config.getUsername())
-                    .password(config.getPassword())
-                    .url(config.getUrl());
-            DataSource ds = factory.build();
+            DataSourceBuilder factory = DataSourceBuilder.create().driverClassName(config.getDriverClassName()).username(config.getUsername()).password(config.getPassword()).url(config.getUrl());
+            DataSource dataSource = factory.build();
             if (config.getInitialize()) {
-                initialize(ds);
+                initialize(dataSource);
             }
-            return ds;
+            return dataSource;
         }
         return null;
     }
 
     private void initialize(DataSource dataSource) {
-        //ClassPathResource schemaResource = new ClassPathResource("schema.sql");
-        //ClassPathResource dataResource = new ClassPathResource("data.sql");
-        //ResourceDatabasePopulator populator = new ResourceDatabasePopulator(schemaResource, dataResource);
-        //populator.execute(dataSource);
+
     }
 
 }

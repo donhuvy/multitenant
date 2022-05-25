@@ -1,6 +1,7 @@
 package com.example.config;
 
 public class TenantContext {
+
     private static final ThreadLocal<String> currentTenant = new InheritableThreadLocal<>();
 
     public static String getCurrentTenant() {
@@ -14,4 +15,5 @@ public class TenantContext {
     public static void clear() {
         currentTenant.set(null);
     }
+
 }

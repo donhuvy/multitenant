@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor;
+// import org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -27,6 +27,7 @@ import java.util.Map;
 
 @Configuration
 public class HibernateConfig {
+
     @Autowired
     private JpaProperties jpaProperties;
 
@@ -40,17 +41,11 @@ public class HibernateConfig {
 
     @Bean
     LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, MultiTenantConnectionProvider multiTenantConnectionProviderImpl, CurrentTenantIdentifierResolver currentTenantIdentifierResolverImpl) {
-        //Properties related to MultiTenancyStrategy Schema
+        //Properties related to MultiTenancyStrategy Schema.
         Map<String, Object> jpaPropertiesMap = new HashMap<>(jpaProperties.getProperties());
         jpaPropertiesMap.put(Environment.MULTI_TENANT, MultiTenancyStrategy.SCHEMA);
         jpaPropertiesMap.put(Environment.MULTI_TENANT_CONNECTION_PROVIDER, multiTenantConnectionProviderImpl);
         jpaPropertiesMap.put(Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, currentTenantIdentifierResolverImpl);
-
-        //Properties related to MultiTenancyStrategy Database
-        //jpaPropertiesMap.put(Environment.MULTI_TENANT, MultiTenancyStrategy.DATABASE);
-        //jpaPropertiesMap.put(Environment.MULTI_TENANT_CONNECTION_PROVIDER, multiTenantConnectionProviderImpl);
-        //jpaPropertiesMap.put(Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, currentTenantIdentifierResolverImpl);
-
         jpaPropertiesMap.put(Environment.FORMAT_SQL, true);
         jpaPropertiesMap.put(Environment.SHOW_SQL, true);
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -61,25 +56,25 @@ public class HibernateConfig {
         return em;
     }
 
-    @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public JdbcTemplate jdbcTemplate() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        SimpleNativeJdbcExtractor simpleNativeJdbcExtractor = new SimpleNativeJdbcExtractor() {
-            @Override
-            public Connection getNativeConnection(Connection con) throws SQLException {
-                con.setSchema(TenantContext.getCurrentTenant());
-                return super.getNativeConnection(con);
-            }
-
-            @Override
-            public Connection getNativeConnectionFromStatement(Statement stmt) throws SQLException {
-                return super.getNativeConnectionFromStatement(stmt);
-            }
-        };
-        simpleNativeJdbcExtractor.setNativeConnectionNecessaryForNativeStatements(true);
-        jdbcTemplate.setNativeJdbcExtractor(simpleNativeJdbcExtractor);
-        return jdbcTemplate;
-    }
+    //@Bean
+    //@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    //public JdbcTemplate jdbcTemplate() {
+    //    JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+    //    SimpleNativeJdbcExtractor simpleNativeJdbcExtractor = new SimpleNativeJdbcExtractor() {
+    //        @Override
+    //        public Connection getNativeConnection(Connection con) throws SQLException {
+    //            con.setSchema(TenantContext.getCurrentTenant());
+    //            return super.getNativeConnection(con);
+    //        }
+    //
+    //        @Override
+    //        public Connection getNativeConnectionFromStatement(Statement stmt) throws SQLException {
+    //            return super.getNativeConnectionFromStatement(stmt);
+    //        }
+    //    };
+    //    simpleNativeJdbcExtractor.setNativeConnectionNecessaryForNativeStatements(true);
+    //    jdbcTemplate.setNativeJdbcExtractor(simpleNativeJdbcExtractor);
+    //    return jdbcTemplate;
+    //}
 
 }

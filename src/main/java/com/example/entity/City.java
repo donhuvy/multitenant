@@ -16,7 +16,9 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class City implements Serializable {
+
     private static final long serialVersionUID = -4551953276601557391L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -47,4 +49,5 @@ public class City implements Serializable {
         sb.append('}');
         return sb.toString();
     }
+
 }

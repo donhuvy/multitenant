@@ -7,14 +7,11 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created by suman.das on 7/23/19.
- */
 @Component
 public class RequestInterceptor extends HandlerInterceptorAdapter {
+
     @Override
-    public boolean preHandle(HttpServletRequest request,
-                             HttpServletResponse response, Object object) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
         System.out.println("In preHandle we are Intercepting the Request");
         System.out.println("____________________________________________");
         String requestURI = request.getRequestURI();

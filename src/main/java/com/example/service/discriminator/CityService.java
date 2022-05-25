@@ -6,13 +6,12 @@ import com.example.repository.CityRepository;
 import javax.persistence.EntityManager;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
-//@Service
 public class CityService {
 
-    //@PersistenceContext
     public EntityManager entityManager;
-    //@Autowired
+
     private CityRepository cityRepository;
 
     public void save(City city) {
@@ -23,7 +22,7 @@ public class CityService {
         return cityRepository.findAll();
     }
 
-    public City get(Long id) {
+    public Optional<City> get(Long id) {
         return cityRepository.findById(id);
     }
 
@@ -34,4 +33,5 @@ public class CityService {
     public void delete(String name) {
         cityRepository.deleteByName(name);
     }
+
 }
