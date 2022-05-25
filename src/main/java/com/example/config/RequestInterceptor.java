@@ -28,9 +28,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
     }
 
     @Override
-    public void postHandle(
-            HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
-            throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
         TenantContext.clear();
     }
 

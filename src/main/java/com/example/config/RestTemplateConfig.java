@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Prototype scoped RestTemplate so it X-TenantID Header can be passed to the Rest API Call
+ * Prototype scoped RestTemplate so it X-TenantID Header can be passed to the RESTful API call.
  */
 @Configuration
 public class RestTemplateConfig {
@@ -33,14 +33,14 @@ public class RestTemplateConfig {
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public RestTemplate restTemplate() {
-        RestTemplate localRestTemplate = new RestTemplate();
-        List<ClientHttpRequestInterceptor> interceptors = localRestTemplate.getInterceptors();
-        if (CollectionUtils.isEmpty(interceptors)) {
-            interceptors = new ArrayList<>();
+        RestTemplate restTemplate = new RestTemplate();
+        List<ClientHttpRequestInterceptor> clientHttpRequestInterceptorList = restTemplate.getInterceptors();
+        if (CollectionUtils.isEmpty(clientHttpRequestInterceptorList)) {
+            clientHttpRequestInterceptorList = new ArrayList<>();
         }
-        interceptors.add(new RestTemplateHeaderModifierInterceptor());
-        localRestTemplate.setInterceptors(interceptors);
-        return localRestTemplate;
+        clientHttpRequestInterceptorList.add(new RestTemplateHeaderModifierInterceptor());
+        restTemplate.setInterceptors(clientHttpRequestInterceptorList);
+        return restTemplate;
     }
 
 }
