@@ -10,11 +10,10 @@ import java.util.List;
 //@Service
 public class CityService {
 
-    //@Autowired
-    private CityRepository cityRepository;
-
     //@PersistenceContext
     public EntityManager entityManager;
+    //@Autowired
+    private CityRepository cityRepository;
 
     public void save(City city) {
         cityRepository.save(city);

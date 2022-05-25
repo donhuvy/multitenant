@@ -21,10 +21,17 @@ import java.util.Map;
  */
 @Configuration
 public class RestTemplateConfig {
+
+    public static MultiValueMap<String, String> getHeaders() {
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        Map map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+        headers.setAll(map);
+        return headers;
+    }
+
     @Bean
-    @Scope(
-            value = ConfigurableBeanFactory.SCOPE_PROTOTYPE,
-            proxyMode = ScopedProxyMode.TARGET_CLASS)
+    @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public RestTemplate restTemplate() {
         RestTemplate localRestTemplate = new RestTemplate();
         List<ClientHttpRequestInterceptor> interceptors = localRestTemplate.getInterceptors();
@@ -34,14 +41,6 @@ public class RestTemplateConfig {
         interceptors.add(new RestTemplateHeaderModifierInterceptor());
         localRestTemplate.setInterceptors(interceptors);
         return localRestTemplate;
-    }
-
-    public static MultiValueMap<String, String> getHeaders() {
-        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        Map map = new HashMap<String, String>();
-        map.put("Content-Type", "application/json");
-        headers.setAll(map);
-        return headers;
     }
 
 

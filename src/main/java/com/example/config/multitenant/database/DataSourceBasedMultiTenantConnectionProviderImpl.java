@@ -12,12 +12,12 @@ import static com.example.constant.MultiTenantConstants.DEFAULT_TENANT_ID;
 
 //@Component
 public class DataSourceBasedMultiTenantConnectionProviderImpl extends AbstractDataSourceBasedMultiTenantConnectionProviderImpl {
+    private final Map<String, DataSource> map = new HashMap<>();
     boolean init = false;
     @Autowired
     private DataSource defaultDS;
     @Autowired
     private ApplicationContext context;
-    private final Map<String, DataSource> map = new HashMap<>();
 
     //@PostConstruct
     public void load() {
@@ -38,4 +38,5 @@ public class DataSourceBasedMultiTenantConnectionProviderImpl extends AbstractDa
         }
         return map.get(tenantIdentifier) != null ? map.get(tenantIdentifier) : map.get(DEFAULT_TENANT_ID);
     }
+
 }
