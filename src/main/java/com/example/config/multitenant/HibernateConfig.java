@@ -32,7 +32,7 @@ public class HibernateConfig {
 
     @Bean
     LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, MultiTenantConnectionProvider multiTenantConnectionProviderImpl, CurrentTenantIdentifierResolver currentTenantIdentifierResolverImpl) {
-        //Properties related to MultiTenancyStrategy Schema.
+        // Properties related to MultiTenancyStrategy schema.
         Map<String, Object> jpaPropertiesMap = new HashMap<>(jpaProperties.getProperties());
         jpaPropertiesMap.put(Environment.MULTI_TENANT, MultiTenancyStrategy.SCHEMA);
         jpaPropertiesMap.put(Environment.MULTI_TENANT_CONNECTION_PROVIDER, multiTenantConnectionProviderImpl);
@@ -46,26 +46,5 @@ public class HibernateConfig {
         em.setJpaPropertyMap(jpaPropertiesMap);
         return em;
     }
-
-    //@Bean
-    //@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.TARGET_CLASS)
-    //public JdbcTemplate jdbcTemplate() {
-    //    JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-    //    SimpleNativeJdbcExtractor simpleNativeJdbcExtractor = new SimpleNativeJdbcExtractor() {
-    //        @Override
-    //        public Connection getNativeConnection(Connection con) throws SQLException {
-    //            con.setSchema(TenantContext.getCurrentTenant());
-    //            return super.getNativeConnection(con);
-    //        }
-    //
-    //        @Override
-    //        public Connection getNativeConnectionFromStatement(Statement stmt) throws SQLException {
-    //            return super.getNativeConnectionFromStatement(stmt);
-    //        }
-    //    };
-    //    simpleNativeJdbcExtractor.setNativeConnectionNecessaryForNativeStatements(true);
-    //    jdbcTemplate.setNativeJdbcExtractor(simpleNativeJdbcExtractor);
-    //    return jdbcTemplate;
-    //}
 
 }
