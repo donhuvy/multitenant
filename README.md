@@ -55,3 +55,10 @@ Once started you can go and request the data using different tenants :
 
 for more detailed technical information please check my
 post : https://medium.com/swlh/multi-tenancy-implementation-using-spring-boot-hibernate-6a8e3ecb251a
+
+- JDK 17
+- Spring Boot 2.7.0
+- PostgreSQL 14.3.1
+- pgAdmin 4 version 6.9
+- Windows 10 pro x64
+- IntelliJ IDEA 2022.1.1 Ultimate
