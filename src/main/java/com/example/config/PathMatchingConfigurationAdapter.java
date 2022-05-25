@@ -22,9 +22,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
-/**
- * Created by suman.das on 7/23/19.
- */
 @Configuration
 public class PathMatchingConfigurationAdapter implements WebMvcConfigurer {
 
@@ -120,4 +117,5 @@ public class PathMatchingConfigurationAdapter implements WebMvcConfigurer {
     public void configurePathMatch(PathMatchConfigurer configurer) {
         configurer.setUseSuffixPatternMatch(false);
     }
+
 }
